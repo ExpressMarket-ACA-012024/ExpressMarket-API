@@ -24,7 +24,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 @Table(name = "ticket")
-@ToString(exclude = {"transaction", "ticketqr"})
+@ToString(exclude = {"transaction"})
 public class Ticket {
 	
 	@Id
@@ -52,10 +52,6 @@ public class Ticket {
 	@JoinColumn(name = "id_order", nullable = true)
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Order order;
-	
-	@OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY)
-	@JsonIgnore
-	private List<TicketQR> ticketqr;
 	
 	@OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY)
 	@JsonIgnore
