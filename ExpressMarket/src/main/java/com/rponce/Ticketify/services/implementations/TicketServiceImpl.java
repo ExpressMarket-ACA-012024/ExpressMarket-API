@@ -112,11 +112,4 @@ public class TicketServiceImpl implements TicketService{
 		
 	}
 
-	@Override
-	public void ExchangeTicket(Ticket ticket) {
-		ticket.setState(false);
-		ticketRepository.save(ticket);
-		
-	}
-
 }
