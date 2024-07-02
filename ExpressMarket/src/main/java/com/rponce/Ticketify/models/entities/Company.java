@@ -32,7 +32,10 @@ public class Company {
 	@Column(name = "role")
 	private String company;
 	
-	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+	@Column(name = "taxid")
+	private String taxid;
+	
+	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<Product> products;
 	

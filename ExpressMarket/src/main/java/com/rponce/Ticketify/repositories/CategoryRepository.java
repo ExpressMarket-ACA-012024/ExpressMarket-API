@@ -2,10 +2,10 @@ package com.rponce.Ticketify.repositories;
 
 import org.springframework.data.repository.ListCrudRepository;
 
-import com.rponce.Ticketify.models.entities.category;
+import com.rponce.Ticketify.models.entities.Category;
 
-public interface CategoryRepository extends ListCrudRepository<category, String>{
+public interface CategoryRepository extends ListCrudRepository<Category, String>{
 
-	category findOneById();
+	Category findOneById(String id);
 	
 }
