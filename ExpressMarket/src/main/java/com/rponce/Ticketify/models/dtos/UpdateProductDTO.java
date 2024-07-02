@@ -19,7 +19,7 @@ public class UpdateProductDTO {
 	private String description;
 	
 	@NotEmpty
-	private Float price;
+	private Double price;
 	
 	@NotEmpty
 	private String company;
