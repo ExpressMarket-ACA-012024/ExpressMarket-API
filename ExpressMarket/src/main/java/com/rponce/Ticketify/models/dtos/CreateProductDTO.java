@@ -1,31 +1,26 @@
 package com.rponce.Ticketify.models.dtos;
 
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
-public class SaveEventDTO {
+public class CreateProductDTO {
+	
 	@NotEmpty
-	private String title;
+	private String name;
 
 	@NotEmpty
 	private String image;
-
-	@NotEmpty
-	private String date;
-
-	@NotEmpty
-	private String hour;
-
+	
 	@NotEmpty
 	private String category;
-
+	
 	@NotEmpty
-	private String place;
-
+	private String description;
+	
 	@NotEmpty
-	private String address;
-
+	private Double price;
+	
+	@NotEmpty
+	private String company;
 }

@@ -25,7 +25,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 @Table(name = "user", schema = "public")
-@ToString(exclude = {"userQR","order","userxrole", "ticket", "transactionsTo", "transactionsFrom"})
+@ToString(exclude = {"userxrole"})
 public class User implements UserDetails{
 	
 	private static final long serialVersionUID = 1460435087476558985L;
@@ -51,29 +51,9 @@ public class User implements UserDetails{
 	@Column(name = "active")
 	private Boolean active;
 	
-	@OneToMany(mappedBy = "userID", fetch = FetchType.LAZY)
-	@JsonIgnore
-	private List<UserQR> userQR;
-	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	@JsonIgnore
-	private List<Order> order;
-	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<UserXRole> userxrole;
-	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	@JsonIgnore
-	private List<Ticket> ticket;
-	
-	@OneToMany(mappedBy = "userTo", fetch = FetchType.LAZY)
-	@JsonIgnore
-	private List<Transaction> transactionsTo;
-	
-	@OneToMany(mappedBy = "userFrom", fetch = FetchType.LAZY)
-	@JsonIgnore
-	private List<Transaction> transactionsFrom;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@JsonIgnore

@@ -4,9 +4,12 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
-public class ExchangeTicketDTO {
-
-	@NotEmpty(message = "Must be a qr string in the petition")
-	String qr;
+public class SaveCompanyDTO {
 	
+	@NotEmpty
+	private String company;
+	
+	@NotEmpty
+	private String taxid;
+
 }

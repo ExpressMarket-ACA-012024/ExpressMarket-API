@@ -2,7 +2,6 @@ package com.rponce.Ticketify.services.implementations;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rponce.Ticketify.models.dtos.SaveCategoryDTO;
@@ -10,54 +9,42 @@ import com.rponce.Ticketify.models.entities.Category;
 import com.rponce.Ticketify.repositories.CategoryRepository;
 import com.rponce.Ticketify.services.CategoryService;
 
-import jakarta.transaction.Transactional;
-
 @Service
 public class CategoryServiceImpl implements CategoryService{
-	
-	@Autowired
-	private CategoryRepository categoryRepository;
 
+	private CategoryRepository categoryRepository;
+	
 	@Override
-	@Transactional(rollbackOn = Exception.class)
 	public void saveCategory(SaveCategoryDTO info) throws Exception {
 		
-		Category category = new Category(
-				info.getId(),
-				info.getCategory()
-				);
+		Category newCategory = new Category();
+		newCategory.setId(info.getId_category());
+		newCategory.setCategory(info.getCategory());
 		
-		categoryRepository.save(category);
+		categoryRepository.save(newCategory);
 	}
 
 	@Override
-	public Category findOneById(String id) {
-		try {
-			return categoryRepository.findById(id)
-					.orElse(null);
-		} catch(Exception error) {
-			return null;
-		}
+	public Category getCategoryById(String id) {
+
+		Category cat = categoryRepository.findOneById(id);
+		
+		return cat;
 	}
 
 	@Override
-	public List<Category> findAllCateogries() {
+	public List<Category> getAllCategories() {
+	
 		return categoryRepository.findAll();
 	}
 
 	@Override
-	@Transactional(rollbackOn = Exception.class)
-	public void deleteCategory(String id) {
-		categoryRepository.deleteById(id);
-	}
-
-	@Override
-	public Category findByCategory(String cateogry) {
-		try {
-			return categoryRepository.findByCategory(cateogry);
-			} catch (Exception error) {
-			return null;
-		}
+	public void deleteCategoryById(String id) throws Exception {
+		
+		Category catToDelete = categoryRepository.findOneById(id);
+		
+		categoryRepository.delete(catToDelete);
+		
 	}
 
 }

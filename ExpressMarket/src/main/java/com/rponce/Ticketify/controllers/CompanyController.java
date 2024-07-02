@@ -1,6 +1,7 @@
 package com.rponce.Ticketify.controllers;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,40 +17,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rponce.Ticketify.models.dtos.SaveCategoryDTO;
+import com.rponce.Ticketify.models.dtos.SaveCompanyDTO;
+import com.rponce.Ticketify.models.entities.Company;
 import com.rponce.Ticketify.models.entities.Category;
-import com.rponce.Ticketify.services.CategoryService;
+import com.rponce.Ticketify.services.CompanyService;
 import com.rponce.Ticketify.utils.RequestErrorHandler;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/company")
 @CrossOrigin("*")
-public class CategoryController {
+public class CompanyController {
 
 	@Autowired
-	private CategoryService categoryService;
+	private CompanyService companyService;
 	
-	@Autowired
-	private RequestErrorHandler errorHandler;
-	
-	@PostMapping("/save")
-	private ResponseEntity<?> SaveCategory (@ModelAttribute @Valid SaveCategoryDTO infoCat, BindingResult validation){
+	@PostMapping("/save/")
+	private ResponseEntity<?> SaveCompany (@ModelAttribute @Valid SaveCompanyDTO infoCat, BindingResult validation){
 		
-		Category categoryExists = categoryService.getCategoryById(infoCat.getId_category());
+	Company companyExists = companyService.getCompanyByTaxid(infoCat.getTaxid());
 		
-		if(categoryExists == null) {
-			return new ResponseEntity<>("Category already exists", HttpStatus.BAD_REQUEST);
-		}
-		
-		if(validation.hasErrors()) {
-			return new ResponseEntity<>(
-					errorHandler.mapErrors(validation.getFieldErrors()), HttpStatus.BAD_REQUEST
-					);
+		if(companyExists != null) {
+			return new ResponseEntity<>("Company already exists", HttpStatus.BAD_REQUEST);
 		}
 		
 		try {
-			categoryService.saveCategory(infoCat);
+			companyService.saveCompany(infoCat);
 			return new ResponseEntity<>(infoCat, HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -58,35 +52,37 @@ public class CategoryController {
 	}
 	
 	@GetMapping("/get/{id}")
-	private ResponseEntity<?> getCategoryById(@PathVariable(name = "id") String Id){
+	private ResponseEntity<?> getCompanyById(@PathVariable(name = "id") String Id){
+		UUID uuid = UUID.fromString(Id);
+		Company company = companyService.getCompanyById(uuid);
 		
-		Category Category = categoryService.getCategoryById(Id);
-		
-		if(Category == null) {
-			return new ResponseEntity<>("Category doesn't exists", HttpStatus.BAD_REQUEST);
+		if(company == null) {
+			return new ResponseEntity<>("Company doesn't exists", HttpStatus.BAD_REQUEST);
 		}
 		
-		return new ResponseEntity<>(Category, HttpStatus.OK);
+		return new ResponseEntity<>(company, HttpStatus.OK);
 	}
 	
 	@GetMapping("/get/all")
-	private ResponseEntity<?> getAllCategories(){
+	private ResponseEntity<?> getAllCompanies(){
 		
-		List<Category> categoryList = categoryService.getAllCategories();
+		List<Company> companyList = companyService.getAllCompanies();
 		
-		if(categoryList == null) {
+		if(companyList == null) {
 			return new ResponseEntity<>("There aren't categories registered", HttpStatus.BAD_REQUEST);
 		}
 		
-		return new ResponseEntity<>(categoryList, HttpStatus.OK);
+		return new ResponseEntity<>(companyList, HttpStatus.OK);
 		
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	private ResponseEntity<?> deleteCategoryById(@PathVariable(name = "id") String Id){
+	private ResponseEntity<?> deleteCompanyById(@PathVariable(name = "id") String Id){
+		
+		UUID uuid = UUID.fromString(Id);
 		
 		try {
-			categoryService.deleteCategoryById(Id);
+			companyService.deleteCompanyById(uuid);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}catch(Exception e) {
 			e.printStackTrace();

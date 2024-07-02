@@ -20,25 +20,28 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "category")
+@Table(name = "company")
 @ToString(exclude = "products")
-public class Category {
+public class Company {
 
 	@Id
 	@Column(name = "id")
-	private String id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private UUID id;
 	
 	@Column(name = "role")
-	private String category;
+	private String company;
 	
-	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+	@Column(name = "taxid")
+	private String taxid;
+	
+	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<Product> products;
 	
-	public Category(String id, String category) {
+	public Company(String id, String role) {
 		super();
-		this.id = id;
-		this.category = category;
-	}	
+		this.company = role;
+	}
 	
 }
