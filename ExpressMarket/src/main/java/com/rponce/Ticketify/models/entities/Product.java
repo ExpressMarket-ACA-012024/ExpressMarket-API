@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class Product {
 	
 	public Product(String name, String image, Category category,
-			String description, Float price, Company company) {
+			String description, Double price, Company company) {
 		super();
 		this.name = name;
 		this.image = image;
@@ -50,7 +50,7 @@ public class Product {
 	private String description;
 	
 	@Column(name = "price")
-	private Float price;
+	private Double price;
 	
 	@JoinColumn(name = "id_company", nullable = true)
 	@ManyToOne(fetch = FetchType.EAGER)
