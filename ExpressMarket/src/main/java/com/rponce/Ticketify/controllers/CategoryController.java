@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rponce.Ticketify.models.dtos.SaveCategoryDTO;
-import com.rponce.Ticketify.models.entities.category;
+import com.rponce.Ticketify.models.entities.Category;
 import com.rponce.Ticketify.services.CategoryService;
 import com.rponce.Ticketify.utils.RequestErrorHandler;
 
@@ -36,7 +36,7 @@ public class CategoryController {
 	@PostMapping("/save")
 	private ResponseEntity<?> SaveCategory (@ModelAttribute @Valid SaveCategoryDTO infoCat, BindingResult validation){
 		
-		category categoryExists = categoryService.getCategoryById(infoCat.getId_category());
+		Category categoryExists = categoryService.getCategoryById(infoCat.getId_category());
 		
 		if(categoryExists == null) {
 			return new ResponseEntity<>("Category already exists", HttpStatus.BAD_REQUEST);
@@ -60,7 +60,7 @@ public class CategoryController {
 	@GetMapping("/get/{id}")
 	private ResponseEntity<?> getCategoryById(@PathVariable(name = "id") String Id){
 		
-		category Category = categoryService.getCategoryById(Id);
+		Category Category = categoryService.getCategoryById(Id);
 		
 		if(Category == null) {
 			return new ResponseEntity<>("Category doesn't exists", HttpStatus.BAD_REQUEST);
@@ -72,7 +72,7 @@ public class CategoryController {
 	@GetMapping("/get/all")
 	private ResponseEntity<?> getAllCategories(){
 		
-		List<category> categoryList = categoryService.getAllCategories();
+		List<Category> categoryList = categoryService.getAllCategories();
 		
 		if(categoryList == null) {
 			return new ResponseEntity<>("There aren't categories registered", HttpStatus.BAD_REQUEST);

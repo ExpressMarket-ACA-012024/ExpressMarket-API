@@ -22,7 +22,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "category")
 @ToString(exclude = "products")
-public class category {
+public class Category {
 
 	@Id
 	@Column(name = "id")
@@ -31,11 +31,11 @@ public class category {
 	@Column(name = "role")
 	private String category;
 	
-	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<Product> products;
 	
-	public category(String id, String category) {
+	public Category(String id, String category) {
 		super();
 		this.id = id;
 		this.category = category;

@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "product")
 public class Product {
 	
-	public Product(String name, String image, category category,
+	public Product(String name, String image, Category category,
 			String description, Float price, Company company) {
 		super();
 		this.name = name;
@@ -34,17 +34,17 @@ public class Product {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID uuid;
+	private UUID id;
 	
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "description")
+	@Column(name = "image")
 	private String image;
 	
 	@JoinColumn(name = "id_category", nullable = true)
 	@ManyToOne(fetch = FetchType.EAGER)
-	private category category;
+	private Category category;
 	
 	@Column(name = "description")
 	private String description;

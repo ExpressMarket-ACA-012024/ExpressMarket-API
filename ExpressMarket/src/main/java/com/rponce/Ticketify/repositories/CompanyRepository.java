@@ -8,6 +8,7 @@ import com.rponce.Ticketify.models.entities.Company;
 
 public interface CompanyRepository extends ListCrudRepository<Company, UUID>{
 
-	Company findOneById();
+	Company findOneById(UUID id);
+	Company findOneByTaxid(String taxid);
 	
 }

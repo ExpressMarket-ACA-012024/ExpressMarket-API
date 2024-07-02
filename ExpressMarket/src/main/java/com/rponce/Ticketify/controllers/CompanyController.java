@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rponce.Ticketify.models.dtos.SaveCategoryDTO;
+import com.rponce.Ticketify.models.dtos.SaveCompanyDTO;
 import com.rponce.Ticketify.models.entities.Company;
-import com.rponce.Ticketify.models.entities.category;
+import com.rponce.Ticketify.models.entities.Category;
 import com.rponce.Ticketify.services.CompanyService;
 import com.rponce.Ticketify.utils.RequestErrorHandler;
 
@@ -32,22 +33,18 @@ public class CompanyController {
 	@Autowired
 	private CompanyService companyService;
 	
-	@Autowired
-	private RequestErrorHandler errorHandler;
-	
-	@PostMapping("/save/{name}")
-	private ResponseEntity<?> SaveCompany (@PathVariable(name = "id") String Id){
+	@PostMapping("/save/")
+	private ResponseEntity<?> SaveCompany (@ModelAttribute @Valid SaveCompanyDTO infoCat, BindingResult validation){
 		
-	UUID uuid = UUID.fromString(Id);
-	Company companyExists = companyService.getCompanyById(uuid);
+	Company companyExists = companyService.getCompanyByTaxid(infoCat.getTaxid());
 		
-		if(companyExists == null) {
+		if(companyExists != null) {
 			return new ResponseEntity<>("Company already exists", HttpStatus.BAD_REQUEST);
 		}
 		
 		try {
-			companyService.saveCompany(uuid.toString());
-			return new ResponseEntity<>(uuid.toString(), HttpStatus.OK);
+			companyService.saveCompany(infoCat);
+			return new ResponseEntity<>(infoCat, HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

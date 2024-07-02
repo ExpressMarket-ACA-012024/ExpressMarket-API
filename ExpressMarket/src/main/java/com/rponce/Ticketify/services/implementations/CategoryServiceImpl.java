@@ -2,11 +2,14 @@ package com.rponce.Ticketify.services.implementations;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.rponce.Ticketify.models.dtos.SaveCategoryDTO;
-import com.rponce.Ticketify.models.entities.category;
+import com.rponce.Ticketify.models.entities.Category;
 import com.rponce.Ticketify.repositories.CategoryRepository;
 import com.rponce.Ticketify.services.CategoryService;
 
+@Service
 public class CategoryServiceImpl implements CategoryService{
 
 	private CategoryRepository categoryRepository;
@@ -14,7 +17,7 @@ public class CategoryServiceImpl implements CategoryService{
 	@Override
 	public void saveCategory(SaveCategoryDTO info) throws Exception {
 		
-		category newCategory = new category();
+		Category newCategory = new Category();
 		newCategory.setId(info.getId_category());
 		newCategory.setCategory(info.getCategory());
 		
@@ -22,15 +25,15 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public category getCategoryById(String id) {
+	public Category getCategoryById(String id) {
 
-		category cat = categoryRepository.findById(id).orElse(null);
+		Category cat = categoryRepository.findOneById(id);
 		
 		return cat;
 	}
 
 	@Override
-	public List<category> getAllCategories() {
+	public List<Category> getAllCategories() {
 	
 		return categoryRepository.findAll();
 	}
@@ -38,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService{
 	@Override
 	public void deleteCategoryById(String id) throws Exception {
 		
-		category catToDelete = categoryRepository.findById(id).orElse(null);
+		Category catToDelete = categoryRepository.findOneById(id);
 		
 		categoryRepository.delete(catToDelete);
 		
