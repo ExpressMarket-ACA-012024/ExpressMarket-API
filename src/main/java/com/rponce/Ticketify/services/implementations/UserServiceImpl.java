@@ -12,10 +12,12 @@ import com.rponce.Ticketify.models.dtos.AuthUserDTO;
 import com.rponce.Ticketify.models.dtos.RecuperatePasswordDTO;
 import com.rponce.Ticketify.models.dtos.SaveUserDTO;
 import com.rponce.Ticketify.models.dtos.UpdatePasswordDTO;
+import com.rponce.Ticketify.models.entities.Store;
 import com.rponce.Ticketify.models.entities.Token;
 import com.rponce.Ticketify.models.entities.User;
 import com.rponce.Ticketify.repositories.TokenRepository;
 import com.rponce.Ticketify.repositories.UserRepository;
+import com.rponce.Ticketify.services.StoreService;
 import com.rponce.Ticketify.services.UserService;
 import com.rponce.Ticketify.utils.JWTTools;
 
@@ -29,6 +31,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private StoreService storeService;
 	
 	@Autowired
 	private JWTTools jwtTools;
@@ -162,6 +167,17 @@ public class UserServiceImpl implements UserService {
 				.getName();
 			
 			return userRepository.findOneByEmail(username);
+	}
+
+	@Override
+	public void UpdateStore(User userToUpdate, UUID uuidStore) {
+		
+		Store store = storeService.getOneStore(uuidStore);
+		
+		userToUpdate.setStore(store);
+		
+		userRepository.save(userToUpdate);
+		
 	}
 
 }
