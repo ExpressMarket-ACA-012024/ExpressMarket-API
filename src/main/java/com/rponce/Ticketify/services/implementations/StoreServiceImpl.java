@@ -1,6 +1,7 @@
 package com.rponce.Ticketify.services.implementations;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,11 @@ public class StoreServiceImpl implements StoreService{
 	@Override
 	public List<Store> getAll() {
 		return storeRepository.findAll();
+	}
+
+	@Override
+	public Store getOneStore(UUID id) {
+		return storeRepository.findById(id).orElse(null);
 	}
 
 }

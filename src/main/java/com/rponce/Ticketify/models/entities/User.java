@@ -58,7 +58,7 @@ public class User implements UserDetails{
 	private List<UserXRole> userxrole;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "store_id")
+	@JoinColumn(name = "id_store", nullable = true)
 	private Store store;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
