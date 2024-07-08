@@ -1,6 +1,7 @@
 package com.rponce.Ticketify.services;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.rponce.Ticketify.models.dtos.AuthUserDTO;
 import com.rponce.Ticketify.models.dtos.RecuperatePasswordDTO;
@@ -24,5 +25,6 @@ public interface UserService {
 	Boolean isTokenValid(User user, String token);
 	void cleanTokens(User user) throws Exception;
 	User findUserAuthenticated();
+	public void UpdateStore(User userToUpdate, UUID uuidStore);
 	
 }
