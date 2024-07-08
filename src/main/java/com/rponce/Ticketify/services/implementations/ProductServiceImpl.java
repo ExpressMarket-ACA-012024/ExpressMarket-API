@@ -129,6 +129,16 @@ public class ProductServiceImpl implements ProductService{
 		return pageProducts;
 	}
 
+	@Override
+	public void deleteProduct(String id) throws Exception {
+		
+		UUID uuid = UUID.fromString(id);
+		Product productToDelete = productRepository.findOneById(uuid);
+		
+		productRepository.delete(productToDelete);
+		
+	}
+
 	
 	
 }

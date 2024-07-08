@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rponce.Ticketify.models.dtos.CreateProductDTO;
 import com.rponce.Ticketify.models.dtos.PageDTO;
+import com.rponce.Ticketify.models.dtos.UpdateProductDTO;
 import com.rponce.Ticketify.models.entities.Product;
 import com.rponce.Ticketify.services.ProductService;
 import com.rponce.Ticketify.utils.RequestErrorHandler;
@@ -51,6 +53,25 @@ public class ProductController {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	@PostMapping("/edit")
+	private ResponseEntity<?> updateProduct(@ModelAttribute @Valid UpdateProductDTO infoProd, BindingResult validation){
+		
+		if(validation.hasErrors()) {
+			return new ResponseEntity<>(
+					errorHandler.mapErrors(validation.getFieldErrors()), HttpStatus.BAD_REQUEST
+					);
+		}
+		
+		try {
+			productService.updateProduct(infoProd.getProduct(), infoProd);
+			return new ResponseEntity<>("Product Succesfully Updated!", HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 	}
 	
 	@GetMapping("/get/{id}")
@@ -118,5 +139,18 @@ public class ProductController {
 		}
 		
 		return new ResponseEntity<>(products, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	private ResponseEntity<?> deleteProduct(@PathVariable(name = "id") String productid){
+		
+		try {
+			productService.deleteProduct(productid);
+			return new ResponseEntity<>("Product succesfully deleted!", HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 	}
 }
