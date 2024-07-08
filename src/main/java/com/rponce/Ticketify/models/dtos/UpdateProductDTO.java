@@ -18,10 +18,12 @@ public class UpdateProductDTO {
 	@NotEmpty
 	private String description;
 	
-	@NotEmpty
 	private Double price;
 	
 	@NotEmpty
 	private String company;
+	
+	@NotEmpty
+	private String product;
 	
 }

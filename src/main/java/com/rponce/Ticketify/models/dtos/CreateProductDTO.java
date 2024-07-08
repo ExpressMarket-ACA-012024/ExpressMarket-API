@@ -17,8 +17,7 @@ public class CreateProductDTO {
 	
 	@NotEmpty
 	private String description;
-	
-	@NotEmpty
+
 	private Double price;
 	
 	@NotEmpty

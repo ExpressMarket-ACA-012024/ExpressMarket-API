@@ -17,5 +17,6 @@ public interface ProductService {
 	List<Product> getProductsByCompany(String companyid);
 	public void updateProduct(String id, UpdateProductDTO info) throws Exception;
 	Page<Product> getProductsByPage(String name, int page, int size);
+	public void deleteProduct(String id) throws Exception;
 	
 }
