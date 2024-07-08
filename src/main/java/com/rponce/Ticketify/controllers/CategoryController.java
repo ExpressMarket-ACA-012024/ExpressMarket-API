@@ -38,7 +38,7 @@ public class CategoryController {
 		
 		Category categoryExists = categoryService.getCategoryById(infoCat.getId_category());
 		
-		if(categoryExists == null) {
+		if(categoryExists != null) {
 			return new ResponseEntity<>("Category already exists", HttpStatus.BAD_REQUEST);
 		}
 		

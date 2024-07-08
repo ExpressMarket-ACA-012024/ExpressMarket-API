@@ -29,7 +29,7 @@ public class Company {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
 	
-	@Column(name = "role")
+	@Column(name = "company")
 	private String company;
 	
 	@Column(name = "taxid")

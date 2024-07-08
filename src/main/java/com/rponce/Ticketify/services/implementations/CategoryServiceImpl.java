@@ -2,6 +2,7 @@ package com.rponce.Ticketify.services.implementations;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rponce.Ticketify.models.dtos.SaveCategoryDTO;
@@ -12,6 +13,7 @@ import com.rponce.Ticketify.services.CategoryService;
 @Service
 public class CategoryServiceImpl implements CategoryService{
 
+	@Autowired
 	private CategoryRepository categoryRepository;
 	
 	@Override
