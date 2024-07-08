@@ -74,7 +74,7 @@ public class ProductController {
 		
 	}
 	
-	@GetMapping("/get/{id}")
+	@GetMapping("/get/one/{id}")
 	private ResponseEntity<?> getProductById(@PathVariable(name = "id")String id){
 		
 		Product productToFind = productService.getOneById(id);
@@ -117,7 +117,7 @@ public class ProductController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
-	@GetMapping("/get/{companyid}")
+	@GetMapping("/get/company/{companyid}")
 	private ResponseEntity<?> getProductsByCompany(@PathVariable(name = "companyid") String companyid){
 	
 		List<Product> products = productService.getProductsByCompany(companyid);
@@ -129,7 +129,7 @@ public class ProductController {
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
 	
-	@GetMapping("/get/{categoryid}")
+	@GetMapping("/get/category/{categoryid}")
 	private ResponseEntity<?> getProductsByCategory(@PathVariable(name = "categoryid") String categoryid){
 	
 		List<Product> products = productService.getProductsByCategory(categoryid);
