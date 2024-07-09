@@ -121,7 +121,7 @@ Por un lado, nos permite tener una separación clara de responsabilidades, lo cu
 ## Compatibilidad de licencias
 
 
-- Link de documento para la compatibilidad de Licencias: https://github.com/Cj72001/Proyecto-IngSoft/blob/Add-manuales/Documentos/Compatibilidad%20de%20licencias.pdf
+- Compatibilidad de Licencias: https://github.com/ExpressMarket-ACA-012024/ExpressMarket-API/tree/main/Anaisis%20de%20licencia
 
 
 ## **Tipos de error**  <a name="error1"></a>
